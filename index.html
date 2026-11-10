@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aloha Robotics | 출고 현장을 위한 양팔 로봇</title>
+<meta name="description" content="알로하 로보틱스는 쇼핑몰·물류 출고 현장의 옷 접기와 비정형 수작업을 양팔 로봇으로 자동화합니다.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{
+  --bg:#0b0c0e; --bg2:#111317; --line:rgba(255,255,255,.09);
+  --ink:#f5f5f7; --sub:#a1a1a6; --dim:#6e6e73;
+  --paper:#ffffff; --paper2:#f5f5f7; --ink-d:#1d1d1f; --sub-d:#6e6e73;
+  --accent:#ff7a1a;
+  --max:1160px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Pretendard Variable",Pretendard,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;word-break:keep-all;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img,video{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+/* nav */
+header{position:fixed;inset:0 0 auto 0;z-index:50;transition:background .3s,border-color .3s;border-bottom:1px solid transparent}
+header.solid{background:rgba(11,12,14,.82);backdrop-filter:saturate(180%) blur(18px);border-color:var(--line)}
+.nav{display:flex;align-items:center;height:64px;gap:36px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--accent);display:inline-block}
+.menu{display:flex;gap:28px;font-size:14px;color:var(--sub)}
+.menu a:hover{color:var(--ink)}
+.nav .cta{margin-left:auto;background:#fff;color:#000;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px}
+
+/* hero */
+.hero{position:relative;min-height:clamp(640px,100vh,960px);display:flex;align-items:center;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.38;filter:grayscale(.25)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,12,14,.96) 0%,rgba(11,12,14,.75) 45%,rgba(11,12,14,.35) 100%),linear-gradient(0deg,var(--bg) 0%,transparent 30%)}
+.hero .wrap{position:relative;z-index:2;padding-top:120px;padding-bottom:80px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);margin-bottom:22px}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+h1{font-size:clamp(40px,6.4vw,76px);line-height:1.12;letter-spacing:-.035em;font-weight:800;margin-bottom:26px}
+.lead{font-size:clamp(16px,1.5vw,19px);color:var(--sub);max-width:560px;margin-bottom:40px}
+.btns{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.btn{background:#fff;color:#000;font-weight:600;font-size:15px;padding:14px 24px;border-radius:4px}
+.btn-link{font-size:15px;font-weight:600}
+.btn-link:hover{color:var(--accent)}
+.badge-speed{position:absolute;right:24px;bottom:24px;z-index:3;font-size:12px;color:var(--dim)}
+
+/* stats */
+.stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg)}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:36px 24px;border-left:1px solid var(--line)}
+.stat:first-child{border-left:0;padding-left:0}
+.stat b{display:block;font-size:30px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px}
+.stat span{font-size:14px;color:var(--sub)}
+
+/* sections */
+section{padding:140px 0}
+.light{background:var(--paper);color:var(--ink-d)}
+.light2{background:var(--paper2);color:var(--ink-d)}
+.kicker{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+h2{font-size:clamp(32px,4.4vw,52px);line-height:1.18;letter-spacing:-.03em;font-weight:800;margin-bottom:22px}
+.desc{font-size:18px;color:var(--sub);max-width:640px}
+.light .desc,.light2 .desc{color:var(--sub-d)}
+.head{margin-bottom:72px}
+
+/* problem */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.pcard{border-top:2px solid var(--ink-d);padding-top:26px}
+.num{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:14px;display:block}
+.pcard h3{font-size:22px;letter-spacing:-.02em;margin-bottom:12px;line-height:1.35}
+.pcard p{color:var(--sub-d);font-size:16px}
+
+/* products */
+.prod{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.pc{background:var(--bg2);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.pc .media{aspect-ratio:16/9;overflow:hidden;background:#000}
+.pc .media img,.pc .media video{width:100%;height:100%;object-fit:cover}
+.pc .body{padding:34px}
+.tag{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.pc h3{font-size:26px;letter-spacing:-.02em;margin-bottom:12px}
+.pc p{color:var(--sub);margin-bottom:20px}
+.pc ul{list-style:none;display:grid;gap:10px;font-size:15px}
+.pc li{padding-left:22px;position:relative;color:var(--ink)}
+.pc li::before{content:"";position:absolute;left:0;top:10px;width:10px;height:2px;background:var(--accent)}
+
+/* learning loop diagram */
+.loop{display:grid;grid-template-columns:1fr 1.15fr;gap:64px;align-items:center}
+.loop svg{width:100%;height:auto}
+.steps{display:grid;gap:28px}
+.steps div{border-left:2px solid #d2d2d7;padding-left:22px}
+.steps h3{font-size:20px;margin-bottom:6px;letter-spacing:-.02em}
+.steps p{color:var(--sub-d);font-size:16px}
+
+/* in action */
+.action{display:grid;grid-template-columns:1.6fr 1fr;gap:20px}
+.frame{border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line);position:relative}
+.frame video,.frame img{width:100%;height:100%;object-fit:cover}
+.cap{font-size:13px;color:var(--dim);margin-top:12px}
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.strip figure{border-radius:12px;overflow:hidden;position:relative}
+.strip figcaption{position:absolute;left:10px;bottom:8px;font-size:12px;font-weight:600;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:4px}
+
+/* proof */
+.proof{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.big{font-size:clamp(72px,10vw,128px);font-weight:800;letter-spacing:-.05em;line-height:1;color:var(--ink-d)}
+.big small{font-size:.38em;color:var(--accent);margin-left:4px}
+.meter{display:grid;grid-template-columns:repeat(15,1fr);gap:6px;margin-top:28px}
+.meter i{aspect-ratio:1;border-radius:4px;background:var(--ink-d)}
+.meter i.x{background:#e3e3e8}
+.note{font-size:14px;color:var(--sub-d);margin-top:14px}
+.rows{display:grid;gap:0;border-top:1px solid #d2d2d7}
+.rows div{display:flex;justify-content:space-between;gap:16px;padding:20px 0;border-bottom:1px solid #d2d2d7;font-size:16px}
+.rows b{font-weight:700}
+.rows span{color:var(--sub-d);text-align:right}
+
+/* case */
+.case{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.case img{border-radius:18px;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center 30%}
+.check{list-style:none;display:grid;gap:14px;margin-top:30px}
+.check li{display:flex;gap:12px;font-size:16px}
+.check li::before{content:"✓";color:var(--accent);font-weight:800}
+
+/* benefits */
+.grid-b{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.b{padding:38px 32px 42px 0;border-bottom:1px solid var(--line)}
+.b:not(:nth-child(3n+1)){padding-left:32px;border-left:1px solid var(--line)}
+.b h3{font-size:20px;letter-spacing:-.02em;margin-bottom:10px}
+.b p{color:var(--sub);font-size:15px}
+
+/* how */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:s}
+.hc{background:#fff;border-radius:18px;padding:36px 32px}
+.hc .tag{color:var(--accent)}
+.hc h3{font-size:24px;margin-bottom:10px;letter-spacing:-.02em}
+.hc p{color:var(--sub-d)}
+
+/* awards */
+.awards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.aw{border:1px solid var(--line);border-radius:14px;padding:26px}
+.aw b{display:block;font-size:13px;color:var(--accent);font-weight:700;margin-bottom:8px}
+.aw h3{font-size:18px;letter-spacing:-.02em;margin-bottom:4px}
+.aw p{font-size:14px;color:var(--dim)}
+
+/* about / contact */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:64px}
+.team{display:grid;gap:16px}
+.member{display:flex;justify-content:space-between;align-items:baseline;padding:22px 0;border-bottom:1px solid #d2d2d7}
+.member b{font-size:20px}
+.member span{color:var(--sub-d)}
+.contact{text-align:center;padding:160px 0;background:radial-gradient(ellipse at 50% 120%,rgba(255,122,26,.22),transparent 60%),var(--bg)}
+.contact .desc{margin:0 auto 40px}
+footer{border-top:1px solid var(--line);padding:56px 0 40px;font-size:14px;color:var(--dim)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+footer h4{color:var(--ink);font-size:14px;margin-bottom:14px}
+footer li{list-style:none;margin-bottom:8px}
+.fbot{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:24px;flex-wrap:wrap;gap:8px}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.rv.on{opacity:1;transform:none}
+
+@media (max-width:900px){
+  section{padding:96px 0}
+  .menu{display:none}
+  .stats .wrap{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:26px 16px}
+  .stat:nth-child(3){border-left:0;padding-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .grid3,.prod,.loop,.action,.proof,.case,.grid-b,.how,.awards,.about,.fgrid{grid-template-columns:1fr}
+  .b,.b:not(:nth-child(3n+1)){padding:30px 0;border-left:0}
+  .strip{grid-template-columns:repeat(2,1fr)}
+  .head{margin-bottom:48px}
+}
+</style>
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap nav">
+    <a class="logo" href="#"><i></i>Aloha Robotics</a>
+    <nav class="menu">
+      <a href="#products">제품</a>
+      <a href="#proof">성능</a>
+      <a href="#case">현장 검증</a>
+      <a href="#about">회사</a>
+    </nav>
+    <a class="cta" href="#contact">문의하기</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <video src="assets/fold_long.mp4" poster="assets/f_2.jpg" autoplay muted loop playsinline></video>
+  <div class="wrap">
+    <div class="eyebrow">쇼핑몰·물류 출고 현장을 위한 피지컬 AI 양팔 로봇</div>
+    <h1>옷 접기,<br>이제 로봇 두 팔이 합니다</h1>
+    <p class="lead">출고 직전 마지막 수작업은 옷 접기와 포장입니다. 알로하 로보틱스는 사람의 시범을 배운 양팔 로봇을 현장에 두고, 월 구독으로 그 일을 대신합니다.</p>
+    <div class="btns">
+      <a class="btn" href="#products">제품 보기</a>
+      <a class="btn-link" href="#proof">시연 결과 보기 →</a>
+    </div>
+  </div>
+  <div class="badge-speed">배경 영상: 긴팔 티셔츠 접기 실물 시연 · 3배속</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><b>73.3%</b><span>티셔츠 접기 성공률 · 30회 무편집</span></div>
+    <div class="stat"><b>2위</b><span>청년 오픈이노베이션 LG전자 트랙</span></div>
+    <div class="stat"><b>현장 검증</b><span>패션 쇼핑몰 Mens floor와 진행 중</span></div>
+    <div class="stat"><b>월 구독</b><span>로봇 구매 없이 도입</span></div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="light">
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">The problem</div>
+      <h2>봉투 넣기는 기계가 합니다.<br>옷 접기는 아직 사람 손입니다</h2>
+      <p class="desc">자동 포장기는 이미 접힌 옷만 받습니다. 옷을 펴고 접는 일은 여전히 출고 담당자가 한 벌씩 손으로 합니다.</p>
+    </div>
+    <div class="grid3">
+      <div class="pcard rv"><span class="num">01</span><h3>출고량이 몰리면 사람이 모자랍니다</h3><p>세일·시즌 주문이 몰리는 날, 접기·포장 인원을 바로 늘리기 어렵습니다. 2026년 최저임금 기준 한 사람의 월 인건비는 215만 6,880원입니다.</p></div>
+      <div class="pcard rv"><span class="num">02</span><h3>전용 폴딩기는 정해진 옷만 접습니다</h3><p>티셔츠 전용 장비는 소재·모양이 바뀌면 멈춥니다. 소호몰은 하루에도 여러 품목을 섞어 출고합니다.</p></div>
+      <div class="pcard rv"><span class="num">03</span><h3>로봇 한 대를 사기엔 부담이 큽니다</h3><p>작은 쇼핑몰과 3PL은 큰 설비 투자를 하기 어렵습니다. 써 보고 효과를 확인한 뒤 결정하고 싶어합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">Products</div>
+      <h2>사람이 보여주면,<br>로봇 두 팔이 배웁니다</h2>
+      <p class="desc">작업자가 리더 팔로 몇십 번 시범을 보이면, 로봇이 그 동작을 모방학습으로 익힙니다. 새 품목도 같은 방법으로 늘려 갑니다.</p>
+    </div>
+    <div class="prod">
+      <div class="pc rv">
+        <div class="media"><img src="assets/fold3.jpg" alt="양팔 로봇이 검은 티셔츠를 집어 들고 접는 세 장면"></div>
+        <div class="body">
+          <div class="tag">Folding arm</div>
+          <h3>양팔 옷 접기 로봇</h3>
+          <p>출고 작업대에 양팔 로봇을 두고 티셔츠·긴팔·반바지를 접습니다. 월 구독으로 도입하고, 현장에서 나온 실패 장면으로 계속 다시 학습합니다.</p>
+          <ul>
+            <li>사람 시범 기반 모방학습 — 품목 추가가 빠름</li>
+            <li>저가 양팔 로봇 — 작업대 한 칸에 설치</li>
+            <li>월 구독 — 로봇 구매·유지보수 부담 없음</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pc rv">
+        <div class="media"><img src="assets/shorts.jpg" alt="주황색 양팔 로봇 앞에 놓인 청반바지"></div>
+        <div class="body">
+          <div class="tag">Process check</div>
+          <h3>비정형 공정 판정</h3>
+          <p>«우리 현장의 이 수작업, 로봇이 할 수 있나?»를 2주 안에 판정합니다. 현장에서 시범 데이터를 모으고, 로봇이 맡을 동작과 사람이 남을 동작을 나눠 보고합니다.</p>
+          <ul>
+            <li>현장 시범 데이터 수집 · 학습 · 성공률 측정</li>
+            <li>로봇·사람 분업안 — 어떤 손을 로봇이 맡을지</li>
+            <li>판정 결과에 따라 구독 도입으로 연결</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING LOOP -->
+<section class="light2">
+  <div class="wrap loop">
+    <div class="rv">
+      <svg viewBox="0 0 440 400" role="img" aria-label="시범, 학습, 현장 작업, 실패 장면 수집이 도는 학습 고리">
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#ff7a1a"/></marker></defs>
+        <circle cx="220" cy="200" r="132" fill="none" stroke="#d2d2d7" stroke-width="2" stroke-dasharray="4 7"/>
+        <path d="M262 76 A132 132 0 0 1 344 158" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M344 242 A132 132 0 0 1 262 324" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M178 324 A132 132 0 0 1 96 242" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ah)"/>
+        <path d="M96 158 A132 132 0 0 1 178 76" fill="none" stroke="#ff7a1a" stroke-width="3" marker-end="url(#ah)"/>
+        <g font-family="Pretendard Variable,sans-serif" text-anchor="middle">
+          <rect x="160" y="44" width="120" height="48" rx="24" fill="#1d1d1f"/><text x="220" y="74" fill="#fff" font-size="16" font-weight="700">① 사람 시범</text>
+          <rect x="330" y="176" width="104" height="48" rx="24" fill="#1d1d1f"/><text x="382" y="206" fill="#fff" font-size="16" font-weight="700">② 학습</text>
+          <rect x="160" y="308" width="120" height="48" rx="24" fill="#1d1d1f"/><text x="220" y="338" fill="#fff" font-size="16" font-weight="700">③ 현장 작업</text>
+          <rect x="4" y="176" width="124" height="48" rx="24" fill="#ff7a1a"/><text x="66" y="206" fill="#fff" font-size="16" font-weight="700">④ 실패 수집</text>
+          <text x="220" y="196" fill="#1d1d1f" font-size="22" font-weight="800">현장에서</text>
+          <text x="220" y="224" fill="#1d1d1f" font-size="22" font-weight="800">계속 배움</text>
+        </g>
+      </svg>
+    </div>
+    <div class="rv">
+      <div class="kicker">How it learns</div>
+      <h2>실패한 장면이<br>다음 학습 재료가 됩니다</h2>
+      <div class="steps">
+        <div><h3>① 사람 시범</h3><p>작업자가 리더 팔을 잡고 실제 옷을 접습니다. 카메라와 관절 값이 함께 기록됩니다.</p></div>
+        <div><h3>② 학습</h3><p>시범 데이터로 양팔 정책을 학습합니다. 새 품목은 시범만 더하면 됩니다.</p></div>
+        <div><h3>③ 현장 작업</h3><p>출고 작업대에서 로봇이 옷을 접습니다. 사람은 남은 동작과 검수를 맡습니다.</p></div>
+        <div><h3>④ 실패 수집</h3><p>연구실에서는 나오지 않는 현장의 실패 장면을 모아 다시 학습합니다.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IN ACTION -->
+<section>
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">In action</div>
+      <h2>편집하지 않은<br>실물 시연입니다</h2>
+      <p class="desc">렌더링이 아닌 실제 로봇 영상입니다. 긴팔 티셔츠를 펼친 상태에서 끝까지 접습니다.</p>
+    </div>
+    <div class="action rv">
+      <div>
+        <div class="frame" style="aspect-ratio:16/9"><video src="assets/fold_long.mp4" poster="assets/f_2.jpg" controls muted playsinline preload="metadata"></video></div>
+        <p class="cap">긴팔 티셔츠 접기 · 원본 102초를 3배속으로 줄임</p>
+    <div class="strip">
+      <figure><img src="assets/f_2.jpg" alt="접기 시작"><figcaption>펼치기</figcaption></figure>
+      <figure><img src="assets/f_12.jpg" alt="소매 접기"><figcaption>소매 접기</figcaption></figure>
+      <figure><img src="assets/f_22.jpg" alt="몸판 접기"><figcaption>몸판 접기</figcaption></figure>
+      <figure><img src="assets/f_32.jpg" alt="접기 완료"><figcaption>완료</figcaption></figure>
+    </div>
+      </div>
+      <div>
+        <div class="frame" style="aspect-ratio:16/9"><video src="assets/fold_shorts.mp4" poster="assets/shorts.jpg" controls muted playsinline preload="metadata"></video></div>
+        <p class="cap">반바지 접기 · 8초</p>
+        <div class="frame" style="aspect-ratio:16/9;margin-top:20px"><img src="assets/soarm.jpg" alt="양팔 로봇 앞에 걸린 줄무늬 티셔츠"></div>
+        <p class="cap">학습용 시범 데이터 수집 장면</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof" class="light">
+  <div class="wrap proof">
+    <div class="rv">
+      <div class="kicker">Proven on the bench</div>
+      <h2>30번 시도,<br>22번 끝까지 접었습니다</h2>
+      <div class="big">73.3<small>%</small></div>
+      <div class="meter" aria-label="30회 중 22회 성공">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i><i class="x"></i>
+      </div>
+      <p class="note">■ 성공 22회 · □ 실패 8회 — 티셔츠 접기, 30회 연속 무편집 측정</p>
+    </div>
+    <div class="rv">
+      <div class="rows">
+        <div><b>측정 대상</b><span>티셔츠 접기 (양팔)</span></div>
+        <div><b>측정 방법</b><span>30회 연속 시도, 영상 무편집</span></div>
+        <div><b>성공 기준</b><span>사람 개입 없이 끝까지 접음</span></div>
+        <div><b>다른 품목</b><span>긴팔 · 반바지 시연 완료</span></div>
+        <div><b>다음 단계</b><span>12월 15일 이후 물류센터 현장 시험</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE -->
+<section id="case" class="light2">
+  <div class="wrap case">
+    <div class="rv"><img src="assets/mou.jpg" alt="업무협약서를 함께 든 두 사람"></div>
+    <div class="rv">
+      <div class="kicker">Case study</div>
+      <h2>실제 쇼핑몰 출고 현장에서<br>검증하고 있습니다</h2>
+      <p class="desc">연매출 5억 원 규모의 패션 쇼핑몰 Mens floor와 업무협약을 맺었습니다. 실제 출고 현장에서 로봇이 맡을 동작을 검증하고 있습니다.</p>
+      <ul class="check">
+        <li>월 구독 도입 의향 확인 (MOU)</li>
+        <li>도입 즉시 유료 전환 합의</li>
+        <li>출고 현장 품목으로 시범 데이터 수집 중</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section>
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">Benefits</div>
+      <h2>도입하면, 이렇게 달라집니다</h2>
+    </div>
+    <div class="grid-b rv">
+      <div class="b"><span class="num">01</span><h3>몰리는 날에도 출고가 밀리지 않습니다</h3><p>주문이 몰리는 날 사람을 급히 구하지 않아도 접기 작업이 이어집니다.</p></div>
+      <div class="b"><span class="num">02</span><h3>사람은 검수와 고객 응대에 집중합니다</h3><p>반복되는 접기는 로봇이 맡고, 판단이 필요한 일은 사람이 맡습니다.</p></div>
+      <div class="b"><span class="num">03</span><h3>여러 품목을 한 대로 접습니다</h3><p>전용 폴딩기와 달리, 시범만 더하면 새 품목을 접습니다.</p></div>
+      <div class="b"><span class="num">04</span><h3>설비 투자 없이 시작합니다</h3><p>월 구독이라 로봇을 사지 않습니다. 효과가 없으면 멈추면 됩니다.</p></div>
+      <div class="b"><span class="num">05</span><h3>쓸수록 더 잘 접습니다</h3><p>우리 현장에서 실패한 장면이 그대로 다음 학습에 들어갑니다.</p></div>
+      <div class="b"><span class="num">06</span><h3>작업대 한 칸이면 충분합니다</h3><p>기존 출고 라인을 바꾸지 않고, 작업대 하나에 로봇을 올립니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="light2">
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">How it works</div>
+      <h2>도입은 세 단계입니다</h2>
+    </div>
+    <div class="how">
+      <div class="hc rv"><div class="tag">Step 01</div><h3>현장 방문</h3><p>반나절 동안 현장의 품목과 작업대를 보고, 로봇으로 시범 시험을 합니다.</p></div>
+      <div class="hc rv"><div class="tag">Step 02</div><h3>2주 판정</h3><p>현장 시범 데이터로 학습하고 성공률을 측정합니다. 로봇·사람 분업안을 보고합니다.</p></div>
+      <div class="hc rv"><div class="tag">Step 03</div><h3>구독 도입</h3><p>작업대에 로봇을 설치하고 월 구독으로 운영합니다. 실패 장면은 계속 재학습합니다.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section>
+  <div class="wrap">
+    <div class="head rv">
+      <div class="kicker">Recognition</div>
+      <h2>2026년, 여러 무대에서<br>검증받았습니다</h2>
+    </div>
+    <div class="awards rv">
+      <div class="aw"><b>우수상 · 트랙 2위</b><h3>청년 오픈이노베이션 챌린지</h3><p>LG전자 트랙 · 2026.10</p></div>
+      <div class="aw"><b>장려상</b><h3>도봉 청년창업 아이디어 경진대회</h3><p>2026.09</p></div>
+      <div class="aw"><b>본선 진출</b><h3>K-조선 해커톤</h3><p>전선 포설 모방학습 · 2026.11</p></div>
+      <div class="aw"><b>본선 진출</b><h3>부산 AI 창업 경진대회</h3><p>178팀 중 본선 20팀 · 2026.10</p></div>
+      <div class="aw"><b>본선 진출</b><h3>K-푸드테크 해커톤</h3><p>2026.10</p></div>
+      <div class="aw"><b>본선 선정</b><h3>전국 로켓피치 경진대회</h3><p>2026.10</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="light">
+  <div class="wrap about">
+    <div class="rv">
+      <div class="kicker">About</div>
+      <h2>현장의 손을 이해하는<br>로봇 팀입니다</h2>
+      <p class="desc">알로하 로보틱스는 서울과학기술대학교에서 시작한 로봇 스타트업입니다. 로봇 하드웨어와 학습을 직접 다루고, 현장에서 사람이 어떤 손동작을 하는지부터 확인한 뒤 로봇에게 가르칩니다.</p>
+    </div>
+    <div class="team rv">
+      <div class="member"><b>구의림</b><span>대표</span></div>
+      <div class="member"><b>이재필</b><span>공동창업자</span></div>
+      <div class="member"><b>소속</b><span>서울과학기술대학교 창업동아리</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact" id="contact">
+  <div class="wrap rv">
+    <div class="kicker">Contact</div>
+    <h2>우리 출고 현장에도<br>들어갈 수 있을까요?</h2>
+    <p class="desc">하루 출고량, 주로 접는 품목, 지금 가장 손이 많이 가는 작업을 알려주세요. 현장 방문 시험부터 함께 검토합니다.</p>
+    <a class="btn" href="mailto:uirim9@gmail.com?subject=%5B%EB%8F%84%EC%9E%85%20%EB%AC%B8%EC%9D%98%5D%20">도입 문의하기 →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><a class="logo" href="#"><i></i>Aloha Robotics</a><p style="margin-top:14px;max-width:340px">출고 현장의 옷 접기와 비정형 수작업을 양팔 로봇으로 자동화합니다.</p></div>
+      <div><h4>제품</h4><ul><li>양팔 옷 접기 로봇</li><li>비정형 공정 판정</li></ul></div>
+      <div><h4>회사 정보</h4><ul><li>대표 · 구의림</li><li>uirim9@gmail.com</li><li>서울과학기술대학교</li></ul></div>
+    </div>
+    <div class="fbot"><span>© 2026 Aloha Robotics. All rights reserved.</span><span>Physical AI · Bimanual Robot · Imitation Learning</span></div>
+  </div>
+</footer>
+
+<script>
+const h=document.getElementById('top');
+addEventListener('scroll',()=>h.classList.toggle('solid',scrollY>40),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
